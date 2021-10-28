@@ -1,6 +1,11 @@
 <?php
 session_start();
-require "koneksi.php";
+
+if (!isset($_SESSION["loginMhs"])) {
+    header("location: ../");
+    exit;
+}
+require "../koneksi.php";
 
 $idMhs = $_SESSION["dataMahasiswa"]["idMhs"];
 $ambil_tb_absen = mysqli_query($koneksi, "SELECT * FROM tb_absensi WHERE idMhs = $idMhs");
@@ -44,14 +49,20 @@ if (isset($_POST["hadir"])) {
     $ket = $_POST["keterangan"];
 
     mysqli_query($koneksi, "INSERT INTO tb_absensi VALUES ('', $idMhs, '$mk', 'hadir', '$waktu', '$jam_hadir', '$ket')");
+
+    header("location: attendance.php");
+    exit;
 }
 //Ketika button Tidak Hadir diklik
 if (isset($_POST["absen"])) {
     $waktu = getWaktu("date");
+    $mk = $_POST["mataKuliah"];
     $jam_hadir = getWaktu("jam");
     $ket = $_POST["keterangan"];
 
-    mysqli_query($koneksi, "INSERT INTO tb_absensi VALUES ('', $idMhs, 'absen', '$waktu', '-', '$ket')");
+    mysqli_query($koneksi, "INSERT INTO tb_absensi VALUES ('', $idMhs, '$mk', 'absen', '$waktu', '-', '$ket')");
+    header("location: attendance.php");
+    exit;
 }
 
 //Mengambil absensi terakhir guna membuat logic alert informasi sudah absen atau belum
@@ -61,7 +72,7 @@ function checkAbsen()
     $ambil_absensi_terakhir = mysqli_query($koneksi, "SELECT * FROM tb_absensi WHERE idMhs = $idMhs ORDER BY id_absensi DESC LIMIT 1");
     $absensi_terakhir = mysqli_fetch_assoc($ambil_absensi_terakhir);
 
-    if (isset($absensi_terakhir) && $absensi_terakhir["waktu"] == getWaktu("date")) {
+    if (isset($absensi_terakhir) && $absensi_terakhir["waktu"] == getWaktu("date") && $absensi_terakhir["status"] == "hadir") {
         return true;
     } else {
         return false;
@@ -107,7 +118,7 @@ checkAbsen();
                         <span class="ms-3 text-sidebar" aria-current="page">Attandance</span>
                     </div>
                 </a>
-                <a href="logout.php" class="position-absolute ms-3 mb-2 bottom-0 rounded-3 text-decoration-none bg-danger btn-outline-danger">
+                <a href="../logout.php" class="position-absolute ms-3 mb-2 bottom-0 rounded-3 text-decoration-none bg-danger btn-outline-danger">
                     <div class=" d-flex align-items-center px-3 py-2 text-white">
                         <i class="bi bi-box-arrow-in-left"></i>
                         <span class="ms-3 text-sidebar" aria-current="page">Log Out</span>
@@ -184,11 +195,10 @@ checkAbsen();
             let form = document.getElementById("form-area");
             form.setAttribute("hidden");
         </script>
-
     <?php endif ?>
 
 
-    <script src="script.js"></script>
+    <script src="../script/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 

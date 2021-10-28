@@ -1,3 +1,26 @@
+<?php
+session_start();
+if (!isset($_SESSION["login"])) {
+    header("location: ../");
+    exit;
+}
+
+require "../koneksi.php";
+
+$ambil_tb_mhs = mysqli_query($koneksi, "SELECT * FROM mahasiswa");
+$ambil_tb_absen_hadir = mysqli_query($koneksi, "SELECT * FROM tb_absensi WHERE status = 'hadir' ");
+$ambil_tb_absen_absen = mysqli_query($koneksi, "SELECT * FROM tb_absensi WHERE status = 'absen' ");
+
+//deklarasi variabel yang ditampilkan pada dashboard dosen
+$total_mahasiswa = mysqli_num_rows($ambil_tb_mhs);
+$total_hadir = mysqli_num_rows($ambil_tb_absen_hadir);
+$total_absen = mysqli_num_rows($ambil_tb_absen_absen);
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +55,7 @@
                         <span class="ms-3 text-sidebar" aria-current="page">Daftar Mahasiswa</span>
                     </div>
                 </a>
-                <a href="logout.php" class="position-absolute ms-3 mb-2 bottom-0 rounded-3 text-decoration-none bg-danger btn-outline-danger">
+                <a href="../logout.php" class="position-absolute ms-3 mb-2 bottom-0 rounded-3 text-decoration-none bg-danger btn-outline-danger">
                     <div class=" d-flex align-items-center px-3 py-2 text-white">
                         <i class="bi bi-box-arrow-in-left"></i>
                         <span class="ms-3 text-sidebar" aria-current="page">Log Out</span>
@@ -50,44 +73,47 @@
 
 
             <div class="row justify-content-between mt-3 mx-1">
-                <div class="col-3 bg-success text-white py-3 rounded-3 text-center">
+                <div class="col-3 bg-dark text-white py-3 rounded-3 text-center">
                     <h6>Total Mahasiswa</h6>
-                    <span class="fw-bold">100</span>
+                    <span class="fw-bold" id="totMhs"><?= $total_mahasiswa ?></span>
                 </div>
                 <div class="col-3 bg-success text-white py-3 rounded-3 text-center">
                     <h6>Total Kehadiran</h6>
-                    <span class="fw-bold">96</span>
+                    <span class="fw-bold" id="totHadir"><?= $total_hadir ?></span>
                 </div>
-                <div class="col-3 bg-success text-white py-3 rounded-3 text-center">
+                <div class="col-3 bg-danger text-white py-3 rounded-3 text-center">
                     <h6>Total Absent</h6>
-                    <span class="fw-bold">4</span>
+                    <span class="fw-bold" id="totAbsen"><?= $total_absen ?></span>
                 </div>
             </div>
 
-            <div>
+            <div class="w-50 mx-auto mt-3">
                 <canvas id="myChart"></canvas>
             </div>
 
             <script>
+                totMhs = parseInt(document.getElementById("totMhs").innerHTML);
+                totHadir = parseInt(document.getElementById("totHadir").innerHTML);
+                totAbsen = parseInt(document.getElementById("totAbsen").innerHTML);
+
                 const labels = [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
+                    'Total Kehadiran',
+                    'Total Absent',
                 ];
                 const data = {
                     labels: labels,
                     datasets: [{
                         label: 'My First dataset',
-                        backgroundColor: 'rgb(255, 99, 132)',
+                        backgroundColor: [
+                            '#188754',
+                            '#DC3546'
+                        ],
                         borderColor: '#00C292',
-                        data: [0, 10, 5, 2, 20, 30, 45],
+                        data: [totHadir, totAbsen],
                     }]
                 };
                 const config = {
-                    type: 'line',
+                    type: 'pie',
                     data: data,
                     options: {}
                 };

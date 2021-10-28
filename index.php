@@ -20,8 +20,8 @@
 
         <p style="font-size: 14px;">Sistem Absensi Online merupakan fitur terbaru dari AIS UIN Jakarta yang digunakan untuk mempermudah mahasiswa UIN Jakarta melakukan absen secara online. Mahasiswa UIN Jakarta dapat melakukan absensi ini dengan cara login Memilih Matakuliah agar tercatat sudah absen pada matakuliah tersebut. Absensi ini memudahkan mahasiswa dan dosen dalam melaksanakan aktivitas perkuliahan.</p>
 
-        <button onclick="document.location = 'login-mahasiswa.php'" type="button" class="btn bg-primary text-white w-100 mb-2 mt-4">Login as Student</button>
-        <button onclick="document.location = 'login-dosen.php'" type="button" class="btn bg-success text-white w-100">Login as Dosen</button>
+        <button onclick="document.location = 'mahasiswa/login-mahasiswa.php'" type="button" class="btn bg-primary text-white w-100 mb-2 mt-4">Login as Student</button>
+        <button onclick="document.location = 'dosen/login-dosen.php'" type="button" class="btn bg-success text-white w-100">Login as Dosen</button>
     </div>
 
 

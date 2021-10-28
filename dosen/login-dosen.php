@@ -1,7 +1,12 @@
 <?php
 session_start();
 
-require 'koneksi.php';
+if (isset($_SESSION["login"])) {
+    header("location: dashboard-dosen.php");
+    exit;
+}
+
+require '../koneksi.php';
 $error = false;
 
 if (isset($_POST["submit"])) {
@@ -45,7 +50,7 @@ if (isset($_POST["submit"])) {
     <title>LOGIN</title>
 
     <!-- IMPORT STYLE -->
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../css/login.css">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
@@ -68,7 +73,7 @@ if (isset($_POST["submit"])) {
         <?php //endif 
         ?> -->
         <form action="" method="POST" class="text-center mx-5">
-            <input type="text" class="form-control mb-2 mx-auto w-100" placeholder="USERNAME" name="nip">
+            <input type="text" class="form-control mb-2 mx-auto w-100" placeholder="NIP" name="nip">
             <input type="password" class="form-control mb-3 mx-auto w-100" placeholder="PASSWORD" name="password">
 
             <button type="submit" name="submit" class="btn mb-5 text-white bg-success w-100">LOGIN</button>

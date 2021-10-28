@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION["loginMhs"])) {
+    header("location: ../");
+    exit;
+}
+
 $koneksi = mysqli_connect("localhost", "root", "", "webabsensi");
 
 $ambil = mysqli_query($koneksi, "SELECT * FROM mahasiswa, tb_absensi WHERE mahasiswa.idMhs = tb_absensi.idMhs ORDER BY id_absensi DESC");
@@ -81,7 +86,7 @@ while ($data = mysqli_fetch_assoc($ambil_tb_absen)) {
                         <span class="ms-3 text-sidebar" aria-current="page">Attandance</span>
                     </div>
                 </a>
-                <a href="logout.php" class="position-absolute ms-3 mb-2 bottom-0 rounded-3 text-decoration-none bg-danger btn-outline-danger">
+                <a href="../logout.php" class="position-absolute ms-3 mb-2 bottom-0 rounded-3 text-decoration-none bg-danger btn-outline-danger">
                     <div class=" d-flex align-items-center px-3 py-2 text-white">
                         <i class="bi bi-box-arrow-in-left"></i>
                         <span class="ms-3 text-sidebar" aria-current="page">Log Out</span>
@@ -165,7 +170,7 @@ while ($data = mysqli_fetch_assoc($ambil_tb_absen)) {
 
 
 
-    <script src="script.js"></script>
+    <script src="../script/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
