@@ -127,11 +127,12 @@ while ($data = mysqli_fetch_assoc($ambil_tb_absen)) {
                 <label class="mt-4" for="mataKuliah">Filter bersarkan mata kuliah:</label> <br>
                 <select class="w-25 py-1" name="mataKuliah" id="" onChange="document.getElementById('form-filter').submit();" required>
                     <option value="" hidden selected>Pilih mata kuliah</option>
-                    <option <?= chooseSelect("Algoritma dan Pemrograman"); ?>>Algoritma dan Pemrograman</option>
-                    <option <?= chooseSelect("Kalkulus"); ?>>Kalkulus</option>
-                    <option <?= chooseSelect("Internet of Thing"); ?>>Internet of Thing</option>
-                    <option <?= chooseSelect("Data Science"); ?>>Data Science</option>
-                    <option <?= chooseSelect("Pemrograman Internet") ?>>Pemrograman Internet</option>
+                    <option <?= chooseSelect("Rekayasa Perangkat Lunak"); ?>>Rekayasa Perangkat Lunak</option>
+                    <option <?= chooseSelect("Manajemen Proyek Sistem Informasi"); ?>>Manajemen Proyek Sistem Informasi</option>
+                    <option <?= chooseSelect("Customer Relationship Management"); ?>>Customer Relationship Management</option>
+                    <option <?= chooseSelect("Arsitektur Enterprise"); ?>>Arsitektur Enterprise</option>
+                    <option <?= chooseSelect("Supply Chain Management") ?>>Supply Chain Management</option>
+                    <option <?= chooseSelect("Metodologi Penelitian") ?>>Metodologi Penelitian</option>
                     <option value="all" <?= chooseSelect("all"); ?>>Tampilkan Semua</option>
                 </select>
             </form>

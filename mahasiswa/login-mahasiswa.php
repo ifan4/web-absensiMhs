@@ -34,8 +34,8 @@ if (isset($_POST["submit"])) {
             header('location: dashboard-mahasiswa.php');
             exit;
         }
-        $error = true;
     }
+    $error = true;
 }
 
 ?>
@@ -67,11 +67,10 @@ if (isset($_POST["submit"])) {
             <i class="bi bi-person-fill align-self-center"></i>
         </div>
         <h1 class="fs-2 text-center">Login Mahasiswa</h1>
-        <!-- <?php //if ($error) : 
-                ?>
-        <h5 class="text-danger fs-5 text-center">PASSWORD SALAH!</h5>
-        <?php //endif 
-        ?> -->
+        <?php if ($error) : ?>
+            <h5 class="text-danger fs-5 text-center">PASSWORD SALAH!</h5>
+        <?php endif
+        ?>
         <form action="" method="POST" class="text-center mx-5">
             <input type="text" class="form-control mb-2 mx-auto w-100" placeholder="NIM" name="nim">
             <input type="password" class="form-control mb-3 mx-auto w-100" placeholder="PASSWORD" name="password">

@@ -167,11 +167,12 @@ checkAbsen();
                 <form action="" method="POST" class="" id="form-area">
                     <select class="d-block w-50 py-2 mb-2" name="mataKuliah" id="" required>
                         <option value="" hidden selected>Pilih Mata Kuliah</option>
-                        <option>Algoritma dan Pemrograman</option>
-                        <option>Kalkulus</option>
-                        <option>Internet of Thing</option>
-                        <option>Data Science</option>
-                        <option>Pemrograman Internet</option>
+                        <option>Rekayasa Perangkat Lunak</option>
+                        <option>Manajemen Proyek Sistem Informasi</option>
+                        <option>Customer Relationship Management</option>
+                        <option>Arsitektur Enterprise</option>
+                        <option>Supply Chain Management</option>
+                        <option>Metodologi Penelitian</option>
                     </select>
                     <div class="d-flex mb-3">
                         <input type="text" class="currentTime form-control w-25 me-2 ps-5" name="waktu" readonly>

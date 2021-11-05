@@ -8,7 +8,7 @@ if (!isset($_SESSION["login"])) {
 $koneksi = mysqli_connect("localhost", "root", "", "webabsensi");
 $mk = null;
 
-$ambil = mysqli_query($koneksi, "SELECT DISTINCT nama, idMhs FROM mahasiswa ORDER BY idMhs DESC");
+$ambil = mysqli_query($koneksi, "SELECT DISTINCT nama, idMhs,nim FROM mahasiswa ORDER BY idMhs DESC");
 
 function hitungTotal($mk = null, $status, $idMhs)
 {
@@ -48,8 +48,10 @@ if (isset($_POST["submit-mhs"])) {
     $jurusan = $_POST["jurusan"];
     $angkatan = $_POST["angkatan"];
 
+    $passwordMD5 = md5($password);
+
     mysqli_query($koneksi, "INSERT INTO mahasiswa VALUES (
-        '', '$nim', '$password', '$nama', '$jurusan', '$angkatan'
+        '', '$nim', '$passwordMD5', '$nama', '$jurusan', '$angkatan'
     )");
 
     if (mysqli_affected_rows($koneksi) > 0) {
@@ -136,6 +138,7 @@ if (isset($_POST["submit-mhs"])) {
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama</th>
+                        <th scope="col">NIM</th>
                         <th scope="col">Total Hadir</th>
                         <th scope="col">Total Absen</th>
                     </tr>
@@ -149,6 +152,7 @@ if (isset($_POST["submit-mhs"])) {
                             <tr>
                                 <th scope="row"><?= $no++; ?></th>
                                 <td><?= $dataMhs["nama"] ?></td>
+                                <td><?= $dataMhs["nim"] ?></td>
                                 <td><?= hitungTotal($mk, "hadir", $dataMhs["idMhs"]) ?></td>
                                 <td><?= hitungTotal($mk, "absen", $dataMhs["idMhs"]) ?></td>
                             </tr>
